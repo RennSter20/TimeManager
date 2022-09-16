@@ -1,6 +1,9 @@
 package com.example.timemngr.ui.Alarm
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.AlarmClock
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,6 +51,14 @@ class AlarmFragment : Fragment() {
 
         button?.setOnClickListener(){
             picker.show(parentFragmentManager, "alarmShow")
+        }
+
+        picker?.addOnPositiveButtonClickListener {
+            Log.i("PICKER", "${picker?.hour}, ${picker?.minute}")
+            var alarmGo: Intent = Intent(AlarmClock.ACTION_SET_ALARM)
+            alarmGo.putExtra(AlarmClock.EXTRA_HOUR, picker?.hour)
+            alarmGo.putExtra(AlarmClock.EXTRA_MINUTES, picker?.minute)
+            startActivity(alarmGo)
         }
     }
 
