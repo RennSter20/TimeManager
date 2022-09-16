@@ -7,12 +7,121 @@
     tools:context=".ui.Alarm.AlarmFragment">
 
     <Button
-        android:id="@+id/containedButton"
+        android:id="@+id/selectTimeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set alarm"
+        android:text="Select time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.24"
+        app:layout_constraintStart_toEndOf="@+id/pickedTimeText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.153" />
+
+
+
+    <TextView
+        android:id="@+id/pickedTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/notSelected"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.093"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.152" />
+
+    <CheckBox
+        android:id="@+id/checkBoxTuesday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:text="@string/tuesday"
+        android:textSize="10dp"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxMonday"
+        app:layout_constraintTop_toBottomOf="@+id/pickedTimeText" />
+
+    <CheckBox
+        android:id="@+id/checkBoxFriday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/friday"
+        android:textSize="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxMonday" />
+
+    <CheckBox
+        android:id="@+id/checkBoxMonday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="72dp"
+        android:padding="5dp"
+        android:text="@string/monday"
+        android:textSize="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pickedTimeText" />
+
+    <CheckBox
+        android:id="@+id/checkBoxThursday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="84dp"
+        android:text="@string/thursday"
+        android:textSize="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxWednesday"
+        app:layout_constraintTop_toBottomOf="@+id/pickedTimeText" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSaturday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/saturday"
+        android:textSize="10dp"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxSunday"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxTuesday" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSunday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/sunday"
+        android:textSize="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxFriday"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxWednesday" />
+
+    <CheckBox
+        android:id="@+id/checkBoxWednesday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:text="@string/wednesday"
+        android:textSize="10dp"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxTuesday"
+        app:layout_constraintTop_toBottomOf="@+id/pickedTimeText" />
+
+    <TextView
+        android:id="@+id/selectedDaysText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/notSelected"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pickedTimeText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
