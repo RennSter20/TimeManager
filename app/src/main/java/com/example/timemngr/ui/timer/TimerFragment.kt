@@ -1,6 +1,10 @@
 package com.example.timemngr.ui.timer
 
 import android.os.Bundle
+import android.transition.Explode
+import android.transition.Fade
+import android.transition.Slide
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +37,13 @@ class TimerFragment : Fragment() {
             textView.text = it
         }
         return root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = Fade()
+        exitTransition = Explode()
+
     }
 
     override fun onDestroyView() {

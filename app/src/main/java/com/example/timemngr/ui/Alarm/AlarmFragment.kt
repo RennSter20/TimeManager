@@ -4,10 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.AlarmClock
 import android.text.TextUtils.replace
+import android.transition.Explode
+import android.transition.Fade
+import android.transition.Slide
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
@@ -15,6 +16,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.timemngr.R
 import com.example.timemngr.databinding.FragmentHomeBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.util.*
@@ -23,12 +26,14 @@ class AlarmFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = Fade()
+        exitTransition = Explode()
 
-
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,114 +52,116 @@ class AlarmFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val pickerTime = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).setHour(12).setMinute(10).build()
-        var selectedTimeText:TextView = requireView().findViewById(R.id.pickedTimeText)
-        var selectedDaysText:TextView = requireView().findViewById(R.id.selectedDaysText)
+        val pickerTime =
+            MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).setHour(12)
+                .setMinute(10).build()
+        var selectedTimeText: TextView = requireView().findViewById(R.id.pickedTimeText)
+        var selectedDaysText: TextView = requireView().findViewById(R.id.selectedDaysText)
 
-        var selectTimeButton:Button? = requireView().findViewById(R.id.selectTimeButton)
+        var selectTimeButton: Button? = requireView().findViewById(R.id.selectTimeButton)
 
 
-        var checkBoxMonday = requireView().findViewById<CheckBox>(R.id.checkBoxMonday)
-        var checkBoxTuesday = requireView().findViewById<CheckBox>(R.id.checkBoxTuesday)
-        var checkBoxWednesday = requireView().findViewById<CheckBox>(R.id.checkBoxWednesday)
-        var checkBoxThursday = requireView().findViewById<CheckBox>(R.id.checkBoxThursday)
-        var checkBoxFriday = requireView().findViewById<CheckBox>(R.id.checkBoxFriday)
-        var checkBoxSaturday = requireView().findViewById<CheckBox>(R.id.checkBoxSaturday)
-        var checkBoxSunday = requireView().findViewById<CheckBox>(R.id.checkBoxSunday)
-
-        selectTimeButton?.setOnClickListener(){
+        selectTimeButton?.setOnClickListener() {
             pickerTime.show(parentFragmentManager, "alarmShow")
         }
 
-        val alarmDays = ArrayList<Int>()
 
+        var startAlarmApp:Intent? = null
 
         pickerTime.addOnPositiveButtonClickListener {
-            selectedTimeText.text = pickerTime.hour.toString() + " : " + pickerTime.minute.toString()
-            var startAlarmApp:Intent = Intent(AlarmClock.ACTION_SET_ALARM).putExtra(AlarmClock.EXTRA_HOUR, pickerTime.hour).putExtra(AlarmClock.EXTRA_MINUTES, pickerTime.minute)
-            startAlarmApp.putExtra(AlarmClock.EXTRA_DAYS, alarmDays)
-            startActivity(startAlarmApp)
+            selectedTimeText.text =
+                pickerTime.hour.toString() + " : " + pickerTime.minute.toString()
+            startAlarmApp=
+                Intent(AlarmClock.ACTION_SET_ALARM).putExtra(AlarmClock.EXTRA_HOUR, pickerTime.hour)
+                    .putExtra(AlarmClock.EXTRA_MINUTES, pickerTime.minute)
+
+
         }
 
-        var firstCheck:Boolean = true
+        var selectDaysDialogButton: Button = requireView().findViewById(R.id.selectDaysButton)
 
+        val alarmDays = ArrayList<Int>()
+        selectDaysDialogButton.setOnClickListener() {
+            val multiItems = arrayOf(
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+            )
+            val checkedItems = booleanArrayOf(false, false, false, false, false, false, false)
+            val calendarDays = arrayOf(Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY, Calendar.SUNDAY)
 
-        fun checkIsAlreadySelected(day:String){
-            var newString:String = ""
-
-            if(!selectedDaysText.text.contains(day)){
-
-                if(day.equals("Sun")){
-                    selectedDaysText.append(day)
-                }else{
-                    selectedDaysText.append(day + ", ")
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(resources.getString(R.string.selectDays))
+                .setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
+                    // Respond to neutral button press
                 }
+                .setPositiveButton(resources.getString(R.string.ok)) { dialog, which ->
 
-            }else{
-                if(day.equals("Sun")){
-                    selectedDaysText.text = selectedDaysText.text.toString().replace("Sun", "")
+                    selectedDaysText.text = ""
 
-                }else{
-                    selectedDaysText.text = selectedDaysText.text.toString().replace(day + ", ", "")
-                    Log.i("TAG", newString)
+                    var index:Int = 0
+
+                    var noOfTrue:Int = 0
+
+                    for(item in checkedItems){
+                        if(item){
+                            noOfTrue++
+                        }
+                    }
+
+                    if(noOfTrue > 0){
+                        for(item in multiItems){
+
+                            if(checkedItems.elementAt(index)) {
+                                selectedDaysText.append(item)
+                                if (noOfTrue > 1) {
+                                    selectedDaysText.append(", ")
+                                }
+                                noOfTrue--
+                            }
+                            index++
+
+                        }
+                    }else{
+                        selectedDaysText.text == ""
+                        selectedDaysText.append("Not selected")
+                    }
+
+                    var dayIndex:Int = 0
+                    for(bool in checkedItems){
+                        if(bool){
+                            alarmDays.add(calendarDays.elementAt(dayIndex))
+                        }
+                        dayIndex++
+                    }
+
+
                 }
-            }
-        }
-        fun checkFirstCheck(day:String){
-            if(firstCheck){
-                firstCheck = false
-                selectedDaysText.text = ""
-            }
-            checkIsAlreadySelected(day)
+                //Multi-choice items (initialized with checked items)
+                .setMultiChoiceItems(multiItems, checkedItems) { dialog, which, checked ->
+                    // Respond to item chosen
+                }
+                .show()
+
+
         }
 
-        fun addToList(day:Int){
-            if(!alarmDays.contains(day)){
-                alarmDays.add(day)
+        var addAlarmButton:Button = requireView().findViewById(R.id.launchAlarmButton)
+
+        addAlarmButton.setOnClickListener(){
+            if(selectedTimeText.text.equals("Not selected")){
+                Snackbar.make(requireView(), "Please select wanted time for alarm!", Snackbar.LENGTH_SHORT).show()
+            }else if(selectedDaysText.text.equals("Not selected")){
+                Snackbar.make(requireView(), "Please select wanted days for alarm to go off!", Snackbar.LENGTH_SHORT).show()
             }else{
-                alarmDays.remove(day)
+                startAlarmApp?.putExtra(AlarmClock.EXTRA_DAYS, alarmDays)
+                startActivity(startAlarmApp!!)
             }
         }
-
-        var listOfSelectedDays = mutableListOf<String>()
-
-
-        checkBoxMonday.setOnCheckedChangeListener { buttonView, isChecked -> listOfSelectedDays.add("Monday")
-            addToList(Calendar.MONDAY)
-        }
-
-        checkBoxTuesday.setOnCheckedChangeListener { buttonView, isChecked -> listOfSelectedDays.add("Tuesday")
-            addToList(Calendar.TUESDAY)
-        }
-
-        checkBoxWednesday.setOnCheckedChangeListener { buttonView, isChecked -> listOfSelectedDays.add("Wednesday")
-            addToList(Calendar.WEDNESDAY)
-        }
-
-        checkBoxThursday.setOnCheckedChangeListener { buttonView, isChecked -> listOfSelectedDays.add("Thursday")
-            addToList(Calendar.THURSDAY)
-        }
-
-        checkBoxFriday.setOnCheckedChangeListener { buttonView, isChecked -> listOfSelectedDays.add("Friday")
-            addToList(Calendar.FRIDAY)
-        }
-
-        checkBoxSaturday.setOnCheckedChangeListener { buttonView, isChecked -> listOfSelectedDays.add("Saturday")
-            addToList(Calendar.SATURDAY)
-        }
-
-        checkBoxSunday.setOnCheckedChangeListener { buttonView, isChecked -> listOfSelectedDays.add("Sunday")
-            addToList(Calendar.SUNDAY)
-        }
-
-
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-
     }
 
     override fun onDestroyView() {
