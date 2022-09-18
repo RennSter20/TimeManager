@@ -1,6 +1,11 @@
 package com.example.timemngr
 
 import android.os.Bundle
+import android.transition.Fade
+import android.transition.Transition
+import android.transition.TransitionInflater
+import android.transition.TransitionManager
+import android.view.animation.Animation
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -29,7 +34,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_alarm, R.id.navigation_stopwatch, R.id.navigation_timer
             )
         )
+
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+
     }
 }

@@ -1,9 +1,9 @@
 package com.example.timemngr.ui.Alarm
 
-import android.app.AlarmManager
 import android.content.Intent
 import android.os.Bundle
 import android.provider.AlarmClock
+import android.text.TextUtils.replace
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +15,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.timemngr.R
 import com.example.timemngr.databinding.FragmentHomeBinding
-import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointForward
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AlarmFragment : Fragment() {
 
@@ -30,6 +26,9 @@ class AlarmFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,16 +66,19 @@ class AlarmFragment : Fragment() {
             pickerTime.show(parentFragmentManager, "alarmShow")
         }
 
+        val alarmDays = ArrayList<Int>()
+
 
         pickerTime.addOnPositiveButtonClickListener {
             selectedTimeText.text = pickerTime.hour.toString() + " : " + pickerTime.minute.toString()
-            var startAlarmApp:Intent = Intent(AlarmClock.ACTION_SET_ALARM).putExtra(AlarmClock.EXTRA_DAYS, Calendar.MONDAY).putExtra(AlarmClock.EXTRA_HOUR, pickerTime.hour).putExtra(AlarmClock.EXTRA_MINUTES, pickerTime.minute)
+            var startAlarmApp:Intent = Intent(AlarmClock.ACTION_SET_ALARM).putExtra(AlarmClock.EXTRA_HOUR, pickerTime.hour).putExtra(AlarmClock.EXTRA_MINUTES, pickerTime.minute)
+            startAlarmApp.putExtra(AlarmClock.EXTRA_DAYS, alarmDays)
             startActivity(startAlarmApp)
         }
 
         var firstCheck:Boolean = true
 
-//target, replacement
+
         fun checkIsAlreadySelected(day:String){
             var newString:String = ""
 
@@ -106,37 +108,51 @@ class AlarmFragment : Fragment() {
             checkIsAlreadySelected(day)
         }
 
+        fun addToList(day:Int){
+            if(!alarmDays.contains(day)){
+                alarmDays.add(day)
+            }else{
+                alarmDays.remove(day)
+            }
+        }
+
         var listOfSelectedDays = mutableListOf<String>()
 
 
         checkBoxMonday.setOnCheckedChangeListener { buttonView, isChecked -> listOfSelectedDays.add("Monday")
-        //checkFirstCheck("Mon")
+            addToList(Calendar.MONDAY)
         }
 
         checkBoxTuesday.setOnCheckedChangeListener { buttonView, isChecked -> listOfSelectedDays.add("Tuesday")
-        //checkFirstCheck("Tue")
+            addToList(Calendar.TUESDAY)
         }
 
         checkBoxWednesday.setOnCheckedChangeListener { buttonView, isChecked -> listOfSelectedDays.add("Wednesday")
-        //checkFirstCheck("Wed")
+            addToList(Calendar.WEDNESDAY)
         }
 
         checkBoxThursday.setOnCheckedChangeListener { buttonView, isChecked -> listOfSelectedDays.add("Thursday")
-        //checkFirstCheck("Thu")
+            addToList(Calendar.THURSDAY)
         }
 
         checkBoxFriday.setOnCheckedChangeListener { buttonView, isChecked -> listOfSelectedDays.add("Friday")
-        //checkFirstCheck("Fri")
+            addToList(Calendar.FRIDAY)
         }
 
         checkBoxSaturday.setOnCheckedChangeListener { buttonView, isChecked -> listOfSelectedDays.add("Saturday")
-        //checkFirstCheck("Sat")
+            addToList(Calendar.SATURDAY)
         }
 
         checkBoxSunday.setOnCheckedChangeListener { buttonView, isChecked -> listOfSelectedDays.add("Sunday")
-        //checkFirstCheck("Sun")
+            addToList(Calendar.SUNDAY)
         }
 
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
 
 
     }

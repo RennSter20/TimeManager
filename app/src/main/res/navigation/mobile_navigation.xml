@@ -9,17 +9,40 @@
         android:id="@+id/navigation_alarm"
         android:name="com.example.timemngr.ui.Alarm.AlarmFragment"
         android:label="@string/title_alarm"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_alarm_to_navigation_stopwatch"
+            app:destination="@id/navigation_stopwatch"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_navigation_alarm_to_navigation_timer"
+            app:destination="@id/navigation_timer" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_stopwatch"
         android:name="com.example.timemngr.ui.stopwatch.StopwatchFragment"
         android:label="@string/title_stopwatch"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_navigation_stopwatch_to_navigation_timer"
+            app:destination="@id/navigation_timer" />
+        <action
+            android:id="@+id/action_navigation_stopwatch_to_navigation_alarm"
+            app:destination="@id/navigation_alarm" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_timer"
         android:name="com.example.timemngr.ui.timer.TimerFragment"
         android:label="@string/title_timer"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/action_navigation_timer_to_navigation_stopwatch"
+            app:destination="@id/navigation_stopwatch" />
+        <action
+            android:id="@+id/action_navigation_timer_to_navigation_alarm"
+            app:destination="@id/navigation_alarm" />
+    </fragment>
 </navigation>
