@@ -15,7 +15,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.timemngr.R
-import com.example.timemngr.databinding.FragmentHomeBinding
+import com.example.timemngr.databinding.FragmentAlarmBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -24,7 +24,7 @@ import java.util.*
 
 class AlarmFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentAlarmBinding? = null
 
     private val binding get() = _binding!!
 
@@ -43,7 +43,7 @@ class AlarmFragment : Fragment() {
         val homeViewModel =
             ViewModelProvider(this).get(AlarmViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentAlarmBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         return root
@@ -117,7 +117,8 @@ class AlarmFragment : Fragment() {
                         for(item in multiItems){
 
                             if(checkedItems.elementAt(index)) {
-                                selectedDaysText.append(item)
+                                var dayShort:String = item.removeRange(3, item.length)
+                                selectedDaysText.append(dayShort)
                                 if (noOfTrue > 1) {
                                     selectedDaysText.append(", ")
                                 }
