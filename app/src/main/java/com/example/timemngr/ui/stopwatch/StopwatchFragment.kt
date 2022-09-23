@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.timemngr.R
 import com.example.timemngr.databinding.FragmentStopwatchBinding
-import com.google.android.material.snackbar.Snackbar
 
 
 class StopwatchFragment : Fragment() {
@@ -54,6 +53,7 @@ class StopwatchFragment : Fragment() {
 
         var startStopwatch: Button = requireView().findViewById(R.id.startStopwatch)
         var stopStopwatch:Button = requireView().findViewById(R.id.stopStopwatch)
+        var resetStopwatch:Button = requireView().findViewById(R.id.resetStopwatch)
 
         var pauseOffset:Long = 0
         var running = false
@@ -83,6 +83,13 @@ class StopwatchFragment : Fragment() {
                 Log.i("PAUSE OFFSET STOP", pauseOffset.toString())
                 running = false
             }
+        }
+
+        resetStopwatch.setOnClickListener(){
+            stopwatch.stop()
+            stopwatch.base = SystemClock.elapsedRealtime()
+            pauseOffset = 0
+            running = false
         }
 
     }
