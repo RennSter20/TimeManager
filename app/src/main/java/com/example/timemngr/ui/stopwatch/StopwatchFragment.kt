@@ -2,8 +2,10 @@ package com.example.timemngr.ui.stopwatch
 
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.transition.Explode
 import android.transition.Fade
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.timemngr.R
 import com.example.timemngr.databinding.FragmentStopwatchBinding
+import com.google.android.material.snackbar.Snackbar
 
 
 class StopwatchFragment : Fragment() {
@@ -46,18 +49,40 @@ class StopwatchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val stopwatch = requireView().findViewById(R.id.chronometer2) as Chronometer
+        val stopwatch:Chronometer = requireView().findViewById(R.id.chronometer2)
+
+
         var startStopwatch: Button = requireView().findViewById(R.id.startStopwatch)
         var stopStopwatch:Button = requireView().findViewById(R.id.stopStopwatch)
 
-        var currentTime:String
+        var pauseOffset:Long = 0
+        var running = false
+
 
         startStopwatch.setOnClickListener(){
-            stopwatch.start()
+            if(!running){
+
+                //offset sluzi da zavara sistem tako da misli da je poceo prije x sekundi,
+                //jer je tu sekundu u sistemu vec prosao
+                stopwatch.base = SystemClock.elapsedRealtime() - pauseOffset
+                Log.i("SYSTEM CLOCK START", SystemClock.elapsedRealtime().toString())
+                Log.i("STOPWATCH BASE START", stopwatch.base.toString())
+                Log.i("PAUSE OFFSET START", pauseOffset.toString())
+                stopwatch.start()
+                running = true
+            }
         }
 
         stopStopwatch.setOnClickListener(){
-            stopwatch.stop()
+            if(running){
+                stopwatch.stop()
+
+                pauseOffset = SystemClock.elapsedRealtime() - stopwatch.base
+                Log.i("SYSTEM CLOCK STOP", SystemClock.elapsedRealtime().toString())
+                Log.i("STOPWATCH BASE STOP", stopwatch.base.toString())
+                Log.i("PAUSE OFFSET STOP", pauseOffset.toString())
+                running = false
+            }
         }
 
     }
