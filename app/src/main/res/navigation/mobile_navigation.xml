@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_alarm"
-        android:name="com.example.timemngr.ui.Alarm.AlarmFragment"
+        android:name="com.package.timemngr.ui.Alarm.AlarmFragment"
         android:label="@string/title_alarm"
         tools:layout="@layout/fragment_alarm" />
 
     <fragment
         android:id="@+id/navigation_stopwatch"
-        android:name="com.example.timemngr.ui.stopwatch.StopwatchFragment"
+        android:name="com.package.timemngr.ui.stopwatch.StopwatchFragment"
         android:label="@string/title_stopwatch"
         tools:layout="@layout/fragment_stopwatch" />
 
     <fragment
         android:id="@+id/navigation_timer"
-        android:name="com.example.timemngr.ui.timer.TimerFragment"
+        android:name="com.package.timemngr.ui.timer.TimerFragment"
         android:label="@string/title_timer"
         tools:layout="@layout/fragment_timer" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.timemngr.ui.Alarm
+package com.`package`.timemngr.ui.Alarm
 
 import android.content.Intent
 import android.os.Bundle

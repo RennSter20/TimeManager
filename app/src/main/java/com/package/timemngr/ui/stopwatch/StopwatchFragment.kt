@@ -1,4 +1,4 @@
-package com.example.timemngr.ui.stopwatch
+package com.`package`.timemngr.ui.stopwatch
 
 
 import android.graphics.Color

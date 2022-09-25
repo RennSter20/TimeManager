@@ -16,7 +16,7 @@
         android:theme="@style/Theme.TimeMngr"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="com.package.timemngr.MainActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>

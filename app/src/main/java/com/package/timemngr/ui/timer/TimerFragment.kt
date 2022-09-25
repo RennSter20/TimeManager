@@ -1,4 +1,4 @@
-package com.example.timemngr.ui.timer
+package com.`package`.timemngr.ui.timer
 
 import android.os.Bundle
 import android.transition.Explode

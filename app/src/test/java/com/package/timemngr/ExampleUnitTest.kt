@@ -1,4 +1,4 @@
-package com.example.timemngr
+package com.`package`.timemngr
 
 import org.junit.Test
 

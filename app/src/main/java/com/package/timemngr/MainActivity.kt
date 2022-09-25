@@ -1,4 +1,4 @@
-package com.example.timemngr
+package com.`package`.timemngr
 
 import android.os.Bundle
 import android.transition.Fade
@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.timemngr.R
 import com.example.timemngr.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

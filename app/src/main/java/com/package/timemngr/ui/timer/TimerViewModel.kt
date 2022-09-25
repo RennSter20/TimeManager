@@ -1,13 +1,13 @@
-package com.example.timemngr.ui.stopwatch
+package com.`package`.timemngr.ui.timer
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class StopwatchViewModel : ViewModel() {
+class TimerViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+        value = "This is notifications Fragment"
     }
     val text: LiveData<String> = _text
 }
