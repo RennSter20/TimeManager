@@ -4,4 +4,212 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.package.timemngr.ui.timer.TimerFragment"/>
+    tools:context="com.package.timemngr.ui.timer.TimerFragment">
+
+    <TextView
+        android:id="@+id/textHourOne"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:text="0"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toStartOf="@+id/textHourTwo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textHourTwo" />
+
+    <TextView
+        android:id="@+id/textSecondsTwo"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:text="0"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toStartOf="@+id/textSecondsLetter"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textSecondsOne"
+        app:layout_constraintTop_toTopOf="@+id/textSecondsLetter" />
+
+    <TextView
+        android:id="@+id/textSecondsLetter"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="104dp"
+        android:text="s"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textSecondsTwo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textHourLetter"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:text="h"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toStartOf="@+id/textMinuteOne"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textHourTwo"
+        app:layout_constraintTop_toTopOf="@+id/textMinuteOne" />
+
+    <TextView
+        android:id="@+id/textMinuteOne"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:text="0"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toStartOf="@+id/textMinuteTwo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textHourLetter"
+        app:layout_constraintTop_toTopOf="@+id/textMinuteTwo" />
+
+    <TextView
+        android:id="@+id/textMinuteTwo"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:text="0"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toStartOf="@+id/textMinuteLetter"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textMinuteOne"
+        app:layout_constraintTop_toTopOf="@+id/textMinuteLetter" />
+
+    <TextView
+        android:id="@+id/textMinuteLetter"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:text="m"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toStartOf="@+id/textSecondsOne"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textMinuteTwo"
+        app:layout_constraintTop_toTopOf="@+id/textSecondsOne" />
+
+    <TextView
+        android:id="@+id/textSecondsOne"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:text="0"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toStartOf="@+id/textSecondsTwo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textMinuteLetter"
+        app:layout_constraintTop_toTopOf="@+id/textSecondsTwo" />
+
+    <TextView
+        android:id="@+id/textHourTwo"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:text="0"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toStartOf="@+id/textHourLetter"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textHourOne"
+        app:layout_constraintTop_toTopOf="@+id/textHourLetter" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:text="1"
+        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintStart_toEndOf="@+id/button" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        app:layout_constraintBottom_toTopOf="@+id/button6"
+        app:layout_constraintStart_toEndOf="@+id/button2" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:text="4"
+        app:layout_constraintBottom_toTopOf="@+id/button7"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5"
+        app:layout_constraintBottom_toTopOf="@+id/button8"
+        app:layout_constraintStart_toEndOf="@+id/button4" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="6"
+        app:layout_constraintBottom_toTopOf="@+id/button9"
+        app:layout_constraintStart_toEndOf="@+id/button5" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginBottom="328dp"
+        android:text="7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="8"
+        app:layout_constraintBottom_toTopOf="@+id/button0"
+        app:layout_constraintStart_toEndOf="@+id/button7" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="9"
+        app:layout_constraintBottom_toTopOf="@+id/buttonDelete"
+        app:layout_constraintStart_toEndOf="@+id/button8" />
+
+    <Button
+        android:id="@+id/button0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="164dp"
+        android:layout_marginBottom="280dp"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="272dp"
+        android:text="Delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
