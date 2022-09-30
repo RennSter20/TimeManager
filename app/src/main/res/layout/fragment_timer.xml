@@ -2,118 +2,60 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.package.timemngr.ui.timer.TimerFragment">
 
     <TextView
-        android:id="@+id/textHourOne"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:text="0"
-        android:textAlignment="center"
+        android:id="@+id/textSecondsDigits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="124dp"
+        android:text="00"
         android:textSize="48sp"
-        app:layout_constraintEnd_toStartOf="@+id/textHourTwo"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textHourTwo" />
-
-    <TextView
-        android:id="@+id/textSecondsTwo"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:text="0"
-        android:textAlignment="center"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toStartOf="@+id/textSecondsLetter"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textSecondsOne"
-        app:layout_constraintTop_toTopOf="@+id/textSecondsLetter" />
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintStart_toEndOf="@+id/textMinuteLetter"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textSecondsLetter"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="104dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="124dp"
         android:text="s"
-        android:textAlignment="center"
         android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textSecondsTwo"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintStart_toEndOf="@+id/textSecondsDigits"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textHourLetter"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="124dp"
         android:text="h"
-        android:textAlignment="center"
         android:textSize="48sp"
-        app:layout_constraintEnd_toStartOf="@+id/textMinuteOne"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textHourTwo"
-        app:layout_constraintTop_toTopOf="@+id/textMinuteOne" />
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintStart_toEndOf="@+id/textHourDigits"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textMinuteOne"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:text="0"
-        android:textAlignment="center"
+        android:id="@+id/textHourDigits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="124dp"
+        android:text="00"
         android:textSize="48sp"
-        app:layout_constraintEnd_toStartOf="@+id/textMinuteTwo"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textHourLetter"
-        app:layout_constraintTop_toTopOf="@+id/textMinuteTwo" />
-
-    <TextView
-        android:id="@+id/textMinuteTwo"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:text="0"
-        android:textAlignment="center"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toStartOf="@+id/textMinuteLetter"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textMinuteOne"
-        app:layout_constraintTop_toTopOf="@+id/textMinuteLetter" />
-
-    <TextView
-        android:id="@+id/textMinuteLetter"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:text="m"
-        android:textAlignment="center"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toStartOf="@+id/textSecondsOne"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textMinuteTwo"
-        app:layout_constraintTop_toTopOf="@+id/textSecondsOne" />
-
-    <TextView
-        android:id="@+id/textSecondsOne"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:text="0"
-        android:textAlignment="center"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toStartOf="@+id/textSecondsTwo"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textMinuteLetter"
-        app:layout_constraintTop_toTopOf="@+id/textSecondsTwo" />
-
-    <TextView
-        android:id="@+id/textHourTwo"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:text="0"
-        android:textAlignment="center"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toStartOf="@+id/textHourLetter"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textHourOne"
-        app:layout_constraintTop_toTopOf="@+id/textHourLetter" />
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/button"
@@ -211,5 +153,30 @@
         android:text="Delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button0" />
+
+    <TextView
+        android:id="@+id/textMinuteDigits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="124dp"
+        android:text="00"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintStart_toEndOf="@+id/textHourLetter"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textMinuteLetter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="124dp"
+        android:text="m"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintStart_toEndOf="@+id/textMinuteDigits"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
