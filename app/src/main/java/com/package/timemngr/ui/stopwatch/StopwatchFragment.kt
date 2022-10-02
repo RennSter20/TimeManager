@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.transition.Explode
 import android.transition.Fade
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,25 +15,32 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.Chronometer
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.timemngr.R
 import com.example.timemngr.databinding.FragmentStopwatchBinding
 import com.google.android.material.progressindicator.CircularProgressIndicator
+import org.w3c.dom.Text
 
 
 class StopwatchFragment : Fragment() {
 
     private var _binding: FragmentStopwatchBinding? = null
+    var base:Long? = null
+    var previous:Boolean? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enterTransition = Fade()
         exitTransition = Explode()
+
+        base = savedInstanceState?.getLong("base")
+        previous = savedInstanceState?.getBoolean("previous")
+        Log.i("RESTORED BASE", previous.toString())
 
     }
 
@@ -51,10 +59,18 @@ class StopwatchFragment : Fragment() {
         return root
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val stopwatch:Chronometer = requireView().findViewById(R.id.chronometer2)
+        var baseText:TextView = requireView().findViewById(R.id.base)
 
+        if(base != null){
+            baseText.setText(base.toString())
+        }else{
+            baseText.setText("Not selected")
+        }
 
         var circularProgress = requireView().findViewById<CircularProgressIndicator>(R.id.progressBar)
         circularProgress.visibility = View.INVISIBLE
@@ -79,6 +95,8 @@ class StopwatchFragment : Fragment() {
 
         var animationFadeIn: Animation? = AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in)
         var animationFadeOut: Animation? = AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_out)
+
+
 
         fun manageElements(arg:String){
             if(arg.equals("START")){
@@ -115,10 +133,10 @@ class StopwatchFragment : Fragment() {
 
         }
 
-        startStopwatch.setOnClickListener(){
+        fun functionStartStopwatch(){
             if(!running){
                 circularProgress.visibility = View.VISIBLE
-
+                previous = true
                 circularProgress.trackColor = GREEN
                 passiveCircularProgress.visibility = View.INVISIBLE
 
@@ -126,18 +144,28 @@ class StopwatchFragment : Fragment() {
 
                 //offset sluzi da zavara sistem tako da misli da je poceo prije x sekundi,
                 //jer je tu sekundu u sistemu vec prosao
-                stopwatch.base = SystemClock.elapsedRealtime() - pauseOffset
+                if(base != null){
+                    stopwatch.base = base!!
+                }else{
+                    stopwatch.base = SystemClock.elapsedRealtime() - pauseOffset
+                }
+                base = stopwatch.base
                 stopwatch.start()
                 running = true
                 showButtons = true
 
             }
         }
+        if(previous == true){
+            functionStartStopwatch()
+        }
+        startStopwatch.setOnClickListener(){
+            functionStartStopwatch()
+        }
 
         stopStopwatch.setOnClickListener(){
             if(running){
                 stopwatch.stop()
-
                 pauseOffset = SystemClock.elapsedRealtime() - stopwatch.base
                 running = false
                 showButtons = false
@@ -153,7 +181,7 @@ class StopwatchFragment : Fragment() {
 
         resetStopwatch.setOnClickListener(){
             stopwatch.stop()
-
+            previous = false
             stopwatch.base = SystemClock.elapsedRealtime()
             pauseOffset = 0
             running = false
@@ -166,6 +194,16 @@ class StopwatchFragment : Fragment() {
             manageElements("RESET")
         }
 
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        if(base != null){
+            outState.putLong("base", base!!)
+            Log.i("TAG", base.toString())
+        }
+
+        outState.putBoolean("previous", previous!!)
     }
 
     override fun onDestroyView() {

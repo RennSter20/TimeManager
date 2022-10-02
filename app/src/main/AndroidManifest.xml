@@ -4,7 +4,7 @@
     package="com.example.timemngr">
 
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"

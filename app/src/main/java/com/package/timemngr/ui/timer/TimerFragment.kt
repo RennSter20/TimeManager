@@ -2,20 +2,29 @@ package com.`package`.timemngr.ui.timer
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.transition.Explode
 import android.transition.Fade
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Button
+import android.widget.Chronometer
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.timemngr.R
 import com.example.timemngr.databinding.FragmentTimerBinding
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.snackbar.Snackbar
+import java.lang.String.format
+import java.text.DateFormat
 
 class TimerFragment : Fragment() {
 
@@ -49,6 +58,11 @@ class TimerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        var progressIndicator:CircularProgressIndicator = requireView().findViewById(R.id.progressBar)
+        progressIndicator.isVisible = false
+
+
         var layoutOther:ConstraintLayout = requireView().findViewById(R.id.layout)
 
         var buttonZero = requireView().findViewById<Button>(R.id.button0)
@@ -79,34 +93,13 @@ class TimerFragment : Fragment() {
         var selectedDigits: TextView? = null
         var selectedLetters:TextView? = null
         var areDigitsSelected:Boolean = false
-        var defaultColor = Color.parseColor("#808080")
+        var defaultColor = textHourDigits.currentTextColor
 
         var leftDigit:Boolean = false
         var rightDigit:Boolean = false
 
         var leftDigitNumber:Int? = null
         var rightDigitNumber:Int? = null
-
-        fun addingDigit(digit:Int){
-            if(selectedDigits != null){
-                if(!rightDigit){
-                    selectedDigits?.setText("0" + digit)
-                    rightDigit = true
-                    rightDigitNumber = digit
-                }else{
-                    selectedDigits!!.setText(digit.toString() + rightDigitNumber.toString())
-                    leftDigit = true
-                }
-
-                if(selectedDigits!!.text.toString().toInt() >= 60){
-                    selectedDigits?.setText("00")
-
-                    when(selectedDigits){
-                        //TO DO if value is greater than 60
-                    }
-                }
-            }
-        }
 
         fun deselectDigits(){
             selectedDigits?.setTextColor(defaultColor)
@@ -117,7 +110,35 @@ class TimerFragment : Fragment() {
 
             leftDigit = false
             rightDigit = false
+            leftDigitNumber = null
+            rightDigitNumber = null
         }
+
+        fun addingDigit(digit:Int){
+            if(selectedDigits != null){
+                if(!rightDigit){
+                    selectedDigits?.setText("0" + digit)
+                    rightDigit = true
+                    rightDigitNumber = digit
+                }else{
+                    selectedDigits!!.setText(digit.toString() + rightDigitNumber.toString())
+                    leftDigit = true
+
+                    if(selectedDigits != null)
+                    if(selectedDigits?.text.toString().toInt() >= 60 && selectedDigits != null){
+                        if(selectedDigits == listOfDigits[1] || selectedDigits == listOfDigits[2]){
+                            selectedDigits?.setText("00")
+                            Toast.makeText(requireContext(), "Maximum value is 59!",Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    deselectDigits()
+                }
+
+
+            }
+        }
+
+
 
         fun selectDigits(textIndex:Int){
             if(selectedDigits != null){
@@ -191,6 +212,54 @@ class TimerFragment : Fragment() {
         buttonNine.setOnClickListener(){
             addingDigit(9)
         }
+
+
+        var startButton = requireView().findViewById<Button>(R.id.startButton)
+        var buttons = listOf(buttonZero, buttonOne, buttonTwo, buttonThree, buttonFour, buttonFive, buttonSix, buttonSeven, buttonEight, buttonNine,buttonDelete,startButton)
+
+        var chronometer:Chronometer = requireView().findViewById(R.id.timerText)
+        chronometer.isVisible = false
+        //chronometer.setText(DateFormat.format("kk:mm:ss", vrijeme))
+
+        startButton.setOnClickListener(){
+            var animationFadeOut: Animation? = AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_out)
+            var animationFadeIn:Animation? = AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in)
+
+            for(button in buttons){
+                button.startAnimation(animationFadeOut)
+                button.isVisible = false
+            }
+
+            for(text in listOfDigits){
+                text.startAnimation(animationFadeOut)
+                text.isVisible = false
+            }
+
+            for(text in listOfLetters){
+                text.startAnimation(animationFadeOut)
+                text.isVisible = false
+            }
+
+            progressIndicator.isVisible = true
+            chronometer.isVisible = true
+            chronometer.startAnimation(animationFadeIn)
+            progressIndicator.startAnimation(animationFadeIn)
+            progressIndicator.indicatorDirection = CircularProgressIndicator.INDICATOR_DIRECTION_COUNTERCLOCKWISE
+
+
+            var hours = listOfDigits[0].text.toString().toInt() * 3600
+            var minutes = listOfDigits[1].text.toString().toInt() * 60
+            var seconds = listOfDigits[2].text.toString().toInt()
+            var sum = hours + minutes + seconds
+
+            progressIndicator.max = sum
+            progressIndicator.progress = sum
+
+            //TO DO implement countdown
+        }
+
+
+
 
     }
 
